@@ -18,6 +18,8 @@ package proxy
 import (
 	"crypto/rand"
 	"encoding/hex"
+	"sync"
+
 	"github.com/Suremeo/ProxyEye/proxy/session"
 	"github.com/Suremeo/ProxyEye/proxy/storage"
 	"github.com/Suremeo/ProxyEye/proxy/world"
@@ -26,7 +28,6 @@ import (
 	"github.com/sandertv/gophertunnel/minecraft/protocol"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 	"github.com/sandertv/gophertunnel/minecraft/text"
-	"sync"
 )
 
 type internalServer struct {
@@ -51,21 +52,21 @@ func NewInternalServer() *internalServer {
 		worlds:   world.NewStore(),
 		listener: NopListener,
 		gamedata: minecraft.GameData{
-			WorldName:                       text.Colourf(storage.Config.Listener.Motd),
-			Difficulty:                      0,
-			EntityUniqueID:                  1,
-			EntityRuntimeID:                 1,
-			PlayerGameMode:                  packet.GameTypeCreative,
-			PlayerPosition:                  mgl32.Vec3{0, 0, 0},
-			Pitch:                           0,
-			Yaw:                             0,
-			Dimension:                       packet.DimensionOverworld,
-			WorldSpawn:                      protocol.BlockPos{0, 0, 0},
-			WorldGameMode:                   0,
-			GameRules:                       map[string]interface{}{},
-			Items:                           []protocol.ItemEntry{},
-			ServerAuthoritativeMovementMode: packet.AuthoritativeMovementModeClient,
-			Experiments:                     []protocol.ExperimentData{},
+			WorldName:              text.Colourf(storage.Config.Listener.Motd),
+			Difficulty:             0,
+			EntityUniqueID:         1,
+			EntityRuntimeID:        1,
+			PlayerGameMode:         packet.GameTypeCreative,
+			PlayerPosition:         mgl32.Vec3{0, 0, 0},
+			Pitch:                  0,
+			Yaw:                    0,
+			Dimension:              packet.DimensionOverworld,
+			WorldSpawn:             protocol.BlockPos{0, 0, 0},
+			WorldGameMode:          0,
+			GameRules:              []protocol.GameRule{{Name: "naturalregeneration", Value: false}},
+			Items:                  []protocol.ItemEntry{},
+			PlayerMovementSettings: protocol.PlayerMovementSettings{MovementType: protocol.PlayerMovementModeServer, ServerAuthoritativeBlockBreaking: true},
+			Experiments:            []protocol.ExperimentData{},
 		},
 	}
 }
@@ -128,8 +129,7 @@ func (i *internalServer) Connect(player session.Player) error {
 		for x := int32(-2); x <= 2; x++ {
 			for z := int32(-2); z <= 2; z++ {
 				_ = player.WritePacket(&packet.LevelChunk{
-					ChunkX:        chunkX + x,
-					ChunkZ:        chunkZ + z,
+					Position:      protocol.ChunkPos{chunkX + x, chunkZ + z},
 					SubChunkCount: 0,
 					RawPayload:    emptyChunk,
 				})

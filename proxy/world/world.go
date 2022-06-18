@@ -16,9 +16,10 @@
 package world
 
 import (
+	"sync"
+
 	"github.com/Suremeo/ProxyEye/proxy/world/chunk"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
-	"sync"
 )
 
 type World struct {
@@ -45,7 +46,7 @@ func (world *World) GetChunk(pos chunk.Pos) (*Chunk, bool) {
 }
 
 func (world *World) AddChunk(pk *packet.LevelChunk) (*Chunk, error) {
-	pos := chunk.Pos{pk.ChunkX, pk.ChunkZ}
+	pos := chunk.Pos{pk.Position.X(), pk.Position.Z()}
 	ch, err := chunk.NetworkDecode(pk.RawPayload, pk.SubChunkCount)
 	if err != nil {
 		return nil, err

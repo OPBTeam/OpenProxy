@@ -16,6 +16,10 @@
 package proxy
 
 import (
+	"math"
+	"strings"
+	"sync"
+
 	"github.com/Suremeo/ProxyEye/proxy/console"
 	"github.com/Suremeo/ProxyEye/proxy/session"
 	"github.com/Suremeo/ProxyEye/proxy/world"
@@ -24,9 +28,6 @@ import (
 	"github.com/go-gl/mathgl/mgl32"
 	"github.com/sandertv/gophertunnel/minecraft/protocol"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
-	"math"
-	"strings"
-	"sync"
 )
 
 type chunkManager struct {
@@ -159,7 +160,7 @@ func (chunks *chunkManager) AddChunk(pk *packet.LevelChunk) {
 		return
 	}
 	chunks.mutex.Lock()
-	chunks.chunks[chunk.Pos{pk.ChunkX, pk.ChunkZ}] = c
+	chunks.chunks[chunk.Pos{pk.Position.X(), pk.Position.Z()}] = c
 	c.AddViewer(chunks.player.NewRuntimeId())
 	chunks.mutex.Unlock()
 }

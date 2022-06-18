@@ -19,6 +19,7 @@ import (
 	"bytes"
 	"github.com/Suremeo/ProxyEye/proxy/world/chunk"
 	"github.com/sandertv/gophertunnel/minecraft"
+	"github.com/sandertv/gophertunnel/minecraft/protocol"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 	"sync"
 )
@@ -70,9 +71,10 @@ func (c *Chunk) SendTo(conn *minecraft.Conn) error {
 	_, _ = chunkBuf.Write(data.BlockNBT)
 
 	return conn.WritePacket(&packet.LevelChunk{
-		ChunkX:        c.Pos[0],
-		ChunkZ:        c.Pos[1],
-		SubChunkCount: uint32(count),
-		RawPayload:    append([]byte(nil), chunkBuf.Bytes()...),
+		Position:            protocol.ChunkPos(c.Pos),
+		SubChunkRequestMode: protocol.SubChunkRequestModeLimited,
+		SubChunkCount:       uint32(count),
+		HighestSubChunk:     uint16(count),
+		RawPayload:          append([]byte(nil), chunkBuf.Bytes()...),
 	})
 }

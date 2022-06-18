@@ -17,6 +17,10 @@ package proxy
 
 import (
 	"errors"
+	"io/ioutil"
+	"log"
+	"sync"
+
 	"github.com/Suremeo/ProxyEye/proxy/session"
 	"github.com/Suremeo/ProxyEye/proxy/session/events"
 	"github.com/Suremeo/ProxyEye/proxy/storage"
@@ -26,9 +30,6 @@ import (
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 	"github.com/sandertv/gophertunnel/minecraft/text"
 	"go.uber.org/atomic"
-	"io/ioutil"
-	"log"
-	"sync"
 )
 
 var discardLogger = log.New(ioutil.Discard, "", 0)
@@ -153,8 +154,7 @@ func (r *remoteserver) Connect(player session.Player) error {
 		for x := int32(-2); x <= 2; x++ {
 			for z := int32(-2); z <= 2; z++ {
 				_ = player.WritePacket(&packet.LevelChunk{
-					ChunkX:        chunkX + x,
-					ChunkZ:        chunkZ + z,
+					Position:      protocol.ChunkPos{chunkX + x, chunkZ + z},
 					SubChunkCount: 0,
 					RawPayload:    emptyChunk,
 				})

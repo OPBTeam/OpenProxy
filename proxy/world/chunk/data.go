@@ -19,6 +19,10 @@ const (
 	// SubChunkVersion is the current version of the written sub chunks, specifying the format they are
 	// written on disk and over network.
 	SubChunkVersion = 8
+	// CurrentBlockVersion is the current version of blocks (states) of the game. This version is composed
+	// of 4 bytes indicating a version, interpreted as a big endian int. The current version represents
+	// 1.16.0.14 {1, 16, 0, 14}.
+	CurrentBlockVersion int32 = 17825806
 )
 
 // SerialisedData holds the serialised data of a chunk. It consists of the chunk's block data itself, a height
@@ -250,7 +254,7 @@ func diskEncodeBlockStorage(buf *bytes.Buffer, storage *BlockStorage, blob bool)
 		blocks[index] = blockEntry{
 			Name:    name,
 			State:   props,
-			Version: protocol.CurrentBlockVersion,
+			Version: CurrentBlockVersion,
 		}
 	}
 	var encoding nbt.Encoding = nbt.LittleEndian

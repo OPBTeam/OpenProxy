@@ -16,6 +16,10 @@
 package proxy
 
 import (
+	"math"
+	"sync"
+	"time"
+
 	"github.com/Suremeo/ProxyEye/proxy/session"
 	"github.com/Suremeo/ProxyEye/proxy/session/anticheat"
 	"github.com/Suremeo/ProxyEye/proxy/session/events"
@@ -23,9 +27,6 @@ import (
 	"github.com/go-gl/mathgl/mgl32"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 	"go.uber.org/atomic"
-	"math"
-	"sync"
-	"time"
 )
 
 type anticheatProfile struct {
@@ -377,10 +378,6 @@ func (p *anticheatProfile) UpdateFlags(i uint32) {
 	case i&packet.AdventureFlagWorldBuilder != 0:
 		if p.flags.Load()&packet.AdventureFlagWorldBuilder == 0 {
 			return // Client is trying to enable WorldBuilder flag
-		}
-	case i&packet.AdventureFlagNoPVP != 0:
-		if p.flags.Load()&packet.AdventureFlagNoPVP == 0 {
-			return // Client is trying to enable NoPVP flag
 		}
 	case i&packet.AdventureFlagWorldImmutable != 0:
 		if p.flags.Load()&packet.AdventureFlagWorldImmutable == 0 {
