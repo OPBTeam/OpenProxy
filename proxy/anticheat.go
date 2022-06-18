@@ -280,22 +280,18 @@ func (p *anticheatProfile) validAttackDirection(player session.Player) bool {
 		if pd == session.DirectionNorthWest || pd == session.DirectionNorthEast {
 			return true
 		}
-		break
 	case session.DirectionSouth:
 		if pd == session.DirectionSouthWest || pd == session.DirectionSouthEast {
 			return true
 		}
-		break
 	case session.DirectionEast:
 		if pd == session.DirectionNorthEast || pd == session.DirectionSouthEast {
 			return true
 		}
-		break
 	case session.DirectionWest:
 		if pd == session.DirectionNorthWest || pd == session.DirectionSouthWest {
 			return true
 		}
-		break
 	}
 	return false
 }
