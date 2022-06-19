@@ -1,6 +1,9 @@
 package session
 
-import "github.com/go-gl/mathgl/mgl32"
+import (
+	"github.com/go-gl/mathgl/mgl32"
+	"github.com/sandertv/gophertunnel/minecraft/protocol"
+)
 
 // AntiCheatProfile is a anticheat profile for a player connected to the proxy.
 type AntiCheatProfile interface {
@@ -54,4 +57,7 @@ type AntiCheatProfile interface {
 
 	// Attack is called when the Player attacks another Player.
 	Attack(Player)
+
+	// Start break block
+	ActionBlock([]protocol.PlayerBlockAction)
 }

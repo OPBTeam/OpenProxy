@@ -178,6 +178,9 @@ func (r *remoteserver) Packet(source session.Source, player session.Player, pk p
 				}
 			}
 		case *packet.PlayerAuthInput:
+			if int32(len(pk.BlockActions)) > 0 {
+				player.Anticheat().ActionBlock(pk.BlockActions)
+			}
 			player.Anticheat().Move(pk.Position, pk.Pitch, pk.HeadYaw)
 		case *packet.UpdateBlock:
 			player.Chunks().UpdateBlock(pk.Position, pk.NewBlockRuntimeID)
@@ -206,6 +209,7 @@ func (r *remoteserver) Packet(source session.Source, player session.Player, pk p
 		case *packet.AdventureSettings:
 			player.Anticheat().SetFlags(pk.Flags)
 		}
+
 	}
 	return true
 }

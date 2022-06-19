@@ -10,6 +10,7 @@ import (
 	"github.com/Suremeo/ProxyEye/proxy/session/events"
 	"github.com/Suremeo/ProxyEye/proxy/world/chunk"
 	"github.com/go-gl/mathgl/mgl32"
+	"github.com/sandertv/gophertunnel/minecraft/protocol"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 	"go.uber.org/atomic"
 )
@@ -25,6 +26,8 @@ type anticheatProfile struct {
 	movement *antiCheatMovement
 
 	combat *antiCheatCombat
+
+	actionsBlock *antiCheatBlock
 
 	cooldowns sync.Map
 
@@ -54,6 +57,15 @@ type antiCheatCombat struct {
 	attackPerSecondPoints atomic.Float64
 }
 
+type antiCheatBlock struct {
+	actions []protocol.PlayerBlockAction
+}
+
+const (
+	NO_START         = -1
+	START_BREAK_TICK = -1
+)
+
 func newAntiCheatProfile(p session.Player) session.AntiCheatProfile {
 	a := &anticheatProfile{
 		player: p,
@@ -65,6 +77,8 @@ func newAntiCheatProfile(p session.Player) session.AntiCheatProfile {
 		useChunks: true,
 
 		ticker: time.NewTicker(1 * time.Second),
+
+		actionsBlock: &antiCheatBlock{},
 	}
 	a.tick()
 	return a
@@ -402,6 +416,14 @@ func (p *anticheatProfile) onGround(pos mgl32.Vec3) bool {
 		}
 	}
 	return false
+}
+
+func (p *anticheatProfile) ActionBlock(actions []protocol.PlayerBlockAction) {
+	for _, action := range actions {
+		if action.Action == protocol.PlayerActionStartBreak {
+			//TODO: update flags
+		}
+	}
 }
 
 func (p *anticheatProfile) Reset(pos mgl32.Vec3, pitch, yaw float32) {

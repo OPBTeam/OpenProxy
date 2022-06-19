@@ -13,4 +13,5 @@ const (
 	DetectionTypeKillaura    = "KILLAURA"
 	DetectionTypeTimer       = "TIMER"
 	DetectionTypeAutoclicker = "AUTOCLICKER"
+	DetectionNukerA          = "NUKERA"
 )
