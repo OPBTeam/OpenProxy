@@ -1,31 +1,17 @@
-/*
- *
- *           ____                        ______
- *          / __ \_________  _  ____  __/ ____/_  _____
- *         / /_/ / ___/ __ \| |/_/ / / / __/ / / / / _ \
- *        / ____/ /  / /_/ />  </ /_/ / /___/ /_/ /  __/
- *       /_/   /_/   \____/_/|_|\__, /_____/\__, /\___/
- *                                /_/         /_/
- *       ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
- *
- *                     Author: Suremeo (github.com/Suremeo)
- *
- *
- */
-
 package main
 
 import (
+	"os"
+	"runtime/pprof"
+	"strconv"
+	"time"
+
 	"github.com/Suremeo/ProxyEye/proxy"
 	"github.com/Suremeo/ProxyEye/proxy/console"
 	"github.com/Suremeo/ProxyEye/proxy/session"
 	"github.com/Suremeo/ProxyEye/proxy/session/anticheat"
 	"github.com/Suremeo/ProxyEye/proxy/session/events"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
-	"os"
-	"runtime/pprof"
-	"strconv"
-	"time"
 )
 
 func main() {

@@ -18,12 +18,13 @@ package storage
 import (
 	"crypto/rand"
 	"encoding/hex"
-	"github.com/Suremeo/ProxyEye/proxy/console"
-	"github.com/Suremeo/ProxyEye/proxy/storage/structures"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"os"
 	"strings"
+
+	"github.com/Suremeo/ProxyEye/proxy/console"
+	"github.com/Suremeo/ProxyEye/proxy/storage/structures"
+	"gopkg.in/yaml.v2"
 )
 
 var Config *structures.Config
@@ -76,7 +77,7 @@ func defaultConfig() *structures.Config {
 		Listener: &structures.ConfigListener{
 			Address: "0.0.0.0:19132",
 			Auth:    true,
-			Motd:    "<bold><dark-purple>Proxy</dark-purple><purple>Eye</purple></bold>",
+			Motd:    "<bold><dark-purple>Open</dark-purple><purple>Proxy</purple></bold>",
 			Secret: func() string { // Generate a cryptographically secure secret for the configuration.
 				b := make([]byte, 32)
 				_, err := rand.Read(b)

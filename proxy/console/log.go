@@ -17,24 +17,24 @@ package console
 
 import (
 	"fmt"
-	"github.com/Suremeo/ProxyEye/proxy/version"
-	"github.com/fatih/color"
-	"github.com/rs/zerolog/diode"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/Suremeo/ProxyEye/proxy/version"
+	"github.com/fatih/color"
+	"github.com/rs/zerolog/diode"
 )
 
 var dioder = diode.NewWriter(os.Stdout, 1000, 5*time.Millisecond, func(missed int) {
 	fmt.Printf("Logger Dropped %d messages", missed)
 })
-
 var debug = true
 
-var logo = fmt.Sprintf("\n\n          ____                        ______\n         / __ \\_________  _  ____  __/ ____/_  _____\n        / /_/ / ___/ __ \\| |/_/ / / / __/ / / / / _ \\\n       / ____/ /  / /_/ />  </ /_/ / /___/ /_/ /  __/\n      /_/   /_/   \\____/_/|_|\\__, /_____/\\__, /\\___/\n                               /_/         /_/\n      \n      %v\n \n                    %v %v\n\n", color.HiMagentaString("▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀"), color.HiWhiteString("Author:"), color.HiRedString("Suremeo"))
+var logo = fmt.Sprintf(color.HiBlueString("\n\n░█████╗░██████╗░███████╗███╗░░██╗  ██████╗░██████╗░░█████╗░██╗░░██╗██╗░░░██╗\n██╔══██╗██╔══██╗██╔════╝████╗░██║  ██╔══██╗██╔══██╗██╔══██╗╚██╗██╔╝╚██╗░██╔╝\n██║░░██║██████╔╝█████╗░░██╔██╗██║  ██████╔╝██████╔╝██║░░██║░╚███╔╝░░╚████╔╝░\n██║░░██║██╔═══╝░██╔══╝░░██║╚████║  ██╔═══╝░██╔══██╗██║░░██║░██╔██╗░░░╚██╔╝░░\n╚█████╔╝██║░░░░░███████╗██║░╚███║  ██║░░░░░██║░░██║╚█████╔╝██╔╝╚██╗░░░██║░░░\n░╚════╝░╚═╝░░░░░╚══════╝╚═╝░░╚══╝  ╚═╝░░░░░╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░\n\n 		%v %v"), color.HiWhiteString("Author:"), color.HiRedString("Suremeo & Phuongaz\n\n"))
 
 func init() {
-	_, _ = dioder.Write([]byte(fmt.Sprintf("\033]0;ProxyEye [%v]\007", version.String)))
+	_, _ = dioder.Write([]byte(fmt.Sprintf("\033]0;OpenProxy [%v]\007", version.String)))
 	_, _ = dioder.Write([]byte(color.MagentaString(logo)))
 }
 
@@ -43,7 +43,7 @@ func SetLevel(debugging bool) {
 }
 
 func Info(msg string, fields ...interface{}) {
-	_, _ = dioder.Write([]byte(addPrefixToNewLine(getTime()+" "+color.HiMagentaString("INFO")+color.HiBlackString(" > "), fmt.Sprintf(msg, fields...), color.HiMagentaString)))
+	_, _ = dioder.Write([]byte(addPrefixToNewLine(getTime()+" "+color.HiBlueString("INFO")+color.HiBlackString(" > "), fmt.Sprintf(msg, fields...), color.HiWhiteString)))
 }
 
 func Debug(msg string, fields ...interface{}) {

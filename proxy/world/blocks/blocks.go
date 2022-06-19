@@ -1,32 +1,18 @@
-/*
- *
- *           ____                        ______
- *          / __ \_________  _  ____  __/ ____/_  _____
- *         / /_/ / ___/ __ \| |/_/ / / / __/ / / / / _ \
- *        / ____/ /  / /_/ />  </ /_/ / /___/ /_/ /  __/
- *       /_/   /_/   \____/_/|_|\__, /_____/\__, /\___/
- *                                /_/         /_/
- *       ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
- *
- *                     Author: Suremeo (github.com/Suremeo)
- *
- *
- */
-
 package blocks
 
 import (
 	"bytes"
 	"encoding/base64"
 	"fmt"
-	"github.com/Suremeo/ProxyEye/proxy/world/chunk"
-	"github.com/go-gl/mathgl/mgl32"
-	"github.com/sandertv/gophertunnel/minecraft/nbt"
-	"github.com/sandertv/gophertunnel/minecraft/protocol"
 	"math"
 	"sort"
 	"sync"
 	"unsafe"
+
+	"github.com/Suremeo/ProxyEye/proxy/world/chunk"
+	"github.com/go-gl/mathgl/mgl32"
+	"github.com/sandertv/gophertunnel/minecraft/nbt"
+	"github.com/sandertv/gophertunnel/minecraft/protocol"
 )
 
 func BlockPosFromVec3(vec3 mgl32.Vec3) protocol.BlockPos {

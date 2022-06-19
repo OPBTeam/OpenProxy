@@ -1,27 +1,13 @@
-/*
- *
- *           ____                        ______
- *          / __ \_________  _  ____  __/ ____/_  _____
- *         / /_/ / ___/ __ \| |/_/ / / / __/ / / / / _ \
- *        / ____/ /  / /_/ />  </ /_/ / /___/ /_/ /  __/
- *       /_/   /_/   \____/_/|_|\__, /_____/\__, /\___/
- *                                /_/         /_/
- *       ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
- *
- *                     Author: Suremeo (github.com/Suremeo)
- *
- *
- */
-
 package world
 
 import (
 	"bytes"
+	"sync"
+
 	"github.com/Suremeo/ProxyEye/proxy/world/chunk"
 	"github.com/sandertv/gophertunnel/minecraft"
 	"github.com/sandertv/gophertunnel/minecraft/protocol"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
-	"sync"
 )
 
 type Chunk struct {
