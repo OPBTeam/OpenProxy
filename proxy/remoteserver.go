@@ -177,6 +177,11 @@ func (r *remoteserver) Packet(source session.Source, player session.Player, pk p
 					}
 				}
 			}
+		case *packet.PlayerAction:
+			if pk.ActionType == protocol.PlayerActionStopBreak || pk.ActionType == protocol.PlayerActionPredictDestroyBlock {
+				player.Anticheat().StopBreak()
+			}
+
 		case *packet.PlayerAuthInput:
 			if int32(len(pk.BlockActions)) > 0 {
 				player.Anticheat().ActionBlock(pk.BlockActions)

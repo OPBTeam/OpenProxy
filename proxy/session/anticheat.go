@@ -58,6 +58,9 @@ type AntiCheatProfile interface {
 	// Attack is called when the Player attacks another Player.
 	Attack(Player)
 
+	// StopBreak is called when the Player stops breaking a block.
+	StopBreak()
+
 	// Start break block
 	ActionBlock([]protocol.PlayerBlockAction)
 }

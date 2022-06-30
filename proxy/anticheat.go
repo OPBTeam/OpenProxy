@@ -58,9 +58,10 @@ type antiCheatCombat struct {
 }
 
 type antiCheatBlock struct {
-	actions    []protocol.PlayerBlockAction
-	blockbreak atomic.Int32
-	cooldowns  sync.Map
+	actions           []protocol.PlayerBlockAction
+	blockbreak        atomic.Int32
+	cooldowns         sync.Map
+	packet_per_second atomic.Int64
 }
 
 const (
@@ -421,26 +422,26 @@ func (p *anticheatProfile) onGround(pos mgl32.Vec3) bool {
 }
 
 func (p *anticheatProfile) ActionBlock(actions []protocol.PlayerBlockAction) {
-	for _, action := range actions {
-		if action.Action == protocol.PlayerActionPredictDestroyBlock || action.Action == protocol.PlayerActionStopBreak {
-			p.detected(&anticheat.Detection{
-				Type:      anticheat.DetectionNukerA,
-				Arguments: make(map[string]interface{}),
-			})
-			count := p.actionsBlock.blockbreak.Add(1)
-			if count <= 2 {
-				p.actionsBlock.cooldowns.Store(anticheat.DetectionNukerA, time.Now().Add(1*time.Second))
-			}
+	p.actionsBlock.packet_per_second.Add(1)
+	max_packet_per_second := 50
+	if p.actionsBlock.packet_per_second.Load() >= int64(max_packet_per_second) {
+		p.player.Chat("You are sending too many actions per second.")
+		p.actionsBlock.packet_per_second.Store(0)
+	}
+}
 
-			if count > 15 {
-				last, ok := p.actionsBlock.cooldowns.Load(anticheat.DetectionNukerA)
-				if ok && last.(time.Time).After(time.Now()) {
-					return
-				}
-				p.player.Anticheat().Player().Chat("You're breaking blocks too fast! Please slow down!")
-				p.actionsBlock.blockbreak.Store(0)
-			}
+func (p *anticheatProfile) StopBreak() {
+	p.actionsBlock.blockbreak.Add(1)
+	if p.actionsBlock.blockbreak.Load() > 5 {
+		p.actionsBlock.cooldowns.Store(anticheat.DetectionNukerA, time.Now().Add(1*time.Second))
+	}
+	if p.actionsBlock.blockbreak.Load() > 15 {
+		last, ok := p.actionsBlock.cooldowns.Load(anticheat.DetectionNukerA)
+		if ok && last.(time.Time).After(time.Now()) {
+			return
 		}
+		p.player.Anticheat().Player().Chat("You're breaking blocks too fast! Please slow down!")
+		p.actionsBlock.blockbreak.Store(0)
 	}
 }
 
