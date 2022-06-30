@@ -422,7 +422,7 @@ func (p *anticheatProfile) onGround(pos mgl32.Vec3) bool {
 
 func (p *anticheatProfile) ActionBlock(actions []protocol.PlayerBlockAction) {
 	for _, action := range actions {
-		if action.Action == protocol.PlayerActionPredictDestroyBlock {
+		if action.Action == protocol.PlayerActionPredictDestroyBlock || action.Action == protocol.PlayerActionStopBreak {
 			p.detected(&anticheat.Detection{
 				Type:      anticheat.DetectionNukerA,
 				Arguments: make(map[string]interface{}),
