@@ -58,7 +58,9 @@ type antiCheatCombat struct {
 }
 
 type antiCheatBlock struct {
-	actions []protocol.PlayerBlockAction
+	actions    []protocol.PlayerBlockAction
+	blockbreak atomic.Int32
+	cooldowns  sync.Map
 }
 
 const (
@@ -420,8 +422,24 @@ func (p *anticheatProfile) onGround(pos mgl32.Vec3) bool {
 
 func (p *anticheatProfile) ActionBlock(actions []protocol.PlayerBlockAction) {
 	for _, action := range actions {
-		if action.Action == protocol.PlayerActionStartBreak {
-			//TODO: update flags
+		if action.Action == protocol.PlayerActionPredictDestroyBlock {
+			p.detected(&anticheat.Detection{
+				Type:      anticheat.DetectionNukerA,
+				Arguments: make(map[string]interface{}),
+			})
+			count := p.actionsBlock.blockbreak.Add(1)
+			if count <= 2 {
+				p.actionsBlock.cooldowns.Store(anticheat.DetectionNukerA, time.Now().Add(1*time.Second))
+			}
+
+			if count > 15 {
+				last, ok := p.actionsBlock.cooldowns.Load(anticheat.DetectionNukerA)
+				if ok && last.(time.Time).After(time.Now()) {
+					return
+				}
+				p.player.Anticheat().Player().Chat("You're breaking blocks too fast! Please slow down!")
+				p.actionsBlock.blockbreak.Store(0)
+			}
 		}
 	}
 }
