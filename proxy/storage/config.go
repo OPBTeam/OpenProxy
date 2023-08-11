@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Suremeo/ProxyEye/proxy/console"
-	"github.com/Suremeo/ProxyEye/proxy/storage/structures"
+	"github.com/opbteam/proxyeye/proxy/console"
+	"github.com/opbteam/proxyeye/proxy/storage/structures"
 	"gopkg.in/yaml.v2"
 )
 

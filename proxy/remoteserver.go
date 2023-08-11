@@ -2,14 +2,15 @@ package proxy
 
 import (
 	"errors"
+	"github.com/opbteam/proxyeye/proxy/util"
 	"io/ioutil"
 	"log"
 	"sync"
 
-	"github.com/Suremeo/ProxyEye/proxy/session"
-	"github.com/Suremeo/ProxyEye/proxy/session/events"
-	"github.com/Suremeo/ProxyEye/proxy/storage"
-	"github.com/Suremeo/ProxyEye/proxy/world"
+	"github.com/opbteam/proxyeye/proxy/session"
+	"github.com/opbteam/proxyeye/proxy/session/events"
+	"github.com/opbteam/proxyeye/proxy/storage"
+	"github.com/opbteam/proxyeye/proxy/world"
 	"github.com/sandertv/gophertunnel/minecraft"
 	"github.com/sandertv/gophertunnel/minecraft/protocol"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
@@ -69,10 +70,15 @@ func (r *remoteserver) Connect(player session.Player) error {
 	}
 	client := player.Raknet().ClientData()
 	client.PlatformOnlineID = player.Raknet().IdentityData().XUID
+
+	if err := util.InitializeToken(); err != nil {
+		return err
+	}
 	conn, err := minecraft.Dialer{
 		ErrorLog:     discardLogger,
 		ClientData:   client,
 		IdentityData: player.Raknet().IdentityData(),
+		TokenSource:  util.TokenSrc,
 	}.Dial("raknet", r.address)
 	if err != nil {
 		r.count.Dec()

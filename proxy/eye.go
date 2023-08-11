@@ -3,20 +3,20 @@ package proxy
 import (
 	"sync"
 
-	"github.com/Suremeo/ProxyEye/proxy/console"
-	"github.com/Suremeo/ProxyEye/proxy/session"
-	"github.com/Suremeo/ProxyEye/proxy/session/anticheat"
-	"github.com/Suremeo/ProxyEye/proxy/session/events"
-	"github.com/Suremeo/ProxyEye/proxy/storage"
-	_ "github.com/Suremeo/ProxyEye/proxy/world/blocks"
 	"github.com/google/uuid"
+	"github.com/opbteam/proxyeye/proxy/console"
+	"github.com/opbteam/proxyeye/proxy/session"
+	"github.com/opbteam/proxyeye/proxy/session/anticheat"
+	"github.com/opbteam/proxyeye/proxy/session/events"
+	"github.com/opbteam/proxyeye/proxy/storage"
+	_ "github.com/opbteam/proxyeye/proxy/world/blocks"
 	"github.com/sandertv/gophertunnel/minecraft"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 	"github.com/sandertv/gophertunnel/minecraft/text"
 )
 
 var Eye = initProxy()
-var lobby = NewRemoteServer("127.0.0.1:1001", 100)
+var lobby = NewRemoteServer("", 100)
 
 type eyeProxy struct {
 	events *sync.Map

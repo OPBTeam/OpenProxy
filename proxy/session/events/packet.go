@@ -1,7 +1,7 @@
 package events
 
 import (
-	"github.com/Suremeo/ProxyEye/proxy/session"
+	"github.com/opbteam/proxyeye/proxy/session"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 )
 

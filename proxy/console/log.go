@@ -21,8 +21,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Suremeo/ProxyEye/proxy/version"
 	"github.com/fatih/color"
+	"github.com/opbteam/proxyeye/proxy/version"
 	"github.com/rs/zerolog/diode"
 )
 

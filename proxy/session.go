@@ -3,8 +3,8 @@ package proxy
 import (
 	"sync"
 
-	"github.com/Suremeo/ProxyEye/proxy/session"
 	"github.com/google/uuid"
+	"github.com/opbteam/proxyeye/proxy/session"
 	"github.com/sandertv/gophertunnel/minecraft"
 	"github.com/sandertv/gophertunnel/minecraft/protocol"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
@@ -103,11 +103,8 @@ func (s *eyeSession) Packet(source session.Source, destination session.Destinati
 			s.entities.Store(pk.EntityUniqueID, struct{}{})
 		}
 	case *packet.AddPlayer:
-		pk.EntityUniqueID = source.TranslateUid(pk.EntityUniqueID)
 		pk.EntityRuntimeID = source.TranslateEid(pk.EntityRuntimeID)
-		if source.Type() != session.SourceTypePlayer {
-			s.entities.Store(pk.EntityUniqueID, struct{}{})
-		}
+
 	case *packet.AdventureSettings:
 		pk.PlayerUniqueID = source.TranslateUid(pk.PlayerUniqueID)
 	case *packet.Animate:

@@ -5,6 +5,7 @@ import (
 )
 
 func init() {
-	packet.Register(packet.IDCraftingData, func() packet.Packet { return &packet.Unknown{PacketID: packet.IDCraftingData} })
-	packet.Register(packet.IDCreativeContent, func() packet.Packet { return &packet.Unknown{PacketID: packet.IDCreativeContent} })
+	packet.RegisterPacketFromClient(packet.IDCraftingData, func() packet.Packet { return &packet.Unknown{PacketID: packet.IDCraftingData} })
+	packet.RegisterPacketFromClient(packet.IDCreativeContent, func() packet.Packet { return &packet.Unknown{PacketID: packet.IDCreativeContent} })
+
 }

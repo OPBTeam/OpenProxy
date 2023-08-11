@@ -9,8 +9,8 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/Suremeo/ProxyEye/proxy/world/chunk"
 	"github.com/go-gl/mathgl/mgl32"
+	"github.com/opbteam/proxyeye/proxy/world/chunk"
 	"github.com/sandertv/gophertunnel/minecraft/nbt"
 	"github.com/sandertv/gophertunnel/minecraft/protocol"
 )

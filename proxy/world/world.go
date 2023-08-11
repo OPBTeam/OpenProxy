@@ -3,7 +3,7 @@ package world
 import (
 	"sync"
 
-	"github.com/Suremeo/ProxyEye/proxy/world/chunk"
+	"github.com/opbteam/proxyeye/proxy/world/chunk"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 )
 

@@ -1,8 +1,8 @@
 package session
 
 import (
-	"github.com/Suremeo/ProxyEye/proxy/world"
 	"github.com/go-gl/mathgl/mgl32"
+	"github.com/opbteam/proxyeye/proxy/world"
 	"github.com/sandertv/gophertunnel/minecraft/protocol"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 )

@@ -1,5 +1,5 @@
 package events
 
-import "github.com/Suremeo/ProxyEye/proxy/session"
+import "github.com/opbteam/proxyeye/proxy/session"
 
 type ConnectEventHandler func(event *Context, player session.Player)

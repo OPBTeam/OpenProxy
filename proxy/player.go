@@ -5,9 +5,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Suremeo/ProxyEye/proxy/session"
-	"github.com/Suremeo/ProxyEye/proxy/session/events"
 	"github.com/go-gl/mathgl/mgl32"
+	"github.com/opbteam/proxyeye/proxy/session"
+	"github.com/opbteam/proxyeye/proxy/session/events"
 	"github.com/sandertv/gophertunnel/minecraft"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 	"github.com/sandertv/gophertunnel/minecraft/text"

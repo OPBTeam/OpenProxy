@@ -6,11 +6,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Suremeo/ProxyEye/proxy"
-	"github.com/Suremeo/ProxyEye/proxy/console"
-	"github.com/Suremeo/ProxyEye/proxy/session"
-	"github.com/Suremeo/ProxyEye/proxy/session/anticheat"
-	"github.com/Suremeo/ProxyEye/proxy/session/events"
+	"github.com/opbteam/proxyeye/proxy"
+	"github.com/opbteam/proxyeye/proxy/console"
+	"github.com/opbteam/proxyeye/proxy/session"
+	"github.com/opbteam/proxyeye/proxy/session/anticheat"
+	"github.com/opbteam/proxyeye/proxy/session/events"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 )
 
@@ -21,7 +21,7 @@ func main() {
 	proxy.Eye.HandleEvent(events.LeaveEventHandler(func(event *events.Context, player session.Player) {
 		console.Warn("Player left: %v", player.Raknet().IdentityData().DisplayName)
 	}))
-	one := proxy.NewRemoteServer("127.0.0.1:1001", 100)
+	one := proxy.NewRemoteServer("", 100)
 	two := proxy.NewInternalServer()
 	proxy.Eye.HandleEvent(events.ConnectEventHandler(func(event *events.Context, player session.Player) {
 		console.Debug("%v connected to %v", player.Raknet().IdentityData().DisplayName, player.Session().Server().Address())

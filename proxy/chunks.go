@@ -5,12 +5,12 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Suremeo/ProxyEye/proxy/console"
-	"github.com/Suremeo/ProxyEye/proxy/session"
-	"github.com/Suremeo/ProxyEye/proxy/world"
-	"github.com/Suremeo/ProxyEye/proxy/world/blocks"
-	"github.com/Suremeo/ProxyEye/proxy/world/chunk"
 	"github.com/go-gl/mathgl/mgl32"
+	"github.com/opbteam/proxyeye/proxy/console"
+	"github.com/opbteam/proxyeye/proxy/session"
+	"github.com/opbteam/proxyeye/proxy/world"
+	"github.com/opbteam/proxyeye/proxy/world/blocks"
+	"github.com/opbteam/proxyeye/proxy/world/chunk"
 	"github.com/sandertv/gophertunnel/minecraft/protocol"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 )

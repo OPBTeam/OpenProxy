@@ -5,10 +5,10 @@ import (
 	"encoding/hex"
 	"sync"
 
-	"github.com/Suremeo/ProxyEye/proxy/session"
-	"github.com/Suremeo/ProxyEye/proxy/storage"
-	"github.com/Suremeo/ProxyEye/proxy/world"
 	"github.com/go-gl/mathgl/mgl32"
+	"github.com/opbteam/proxyeye/proxy/session"
+	"github.com/opbteam/proxyeye/proxy/storage"
+	"github.com/opbteam/proxyeye/proxy/world"
 	"github.com/sandertv/gophertunnel/minecraft"
 	"github.com/sandertv/gophertunnel/minecraft/protocol"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"

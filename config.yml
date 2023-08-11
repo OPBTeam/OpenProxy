@@ -1,5 +1,5 @@
 listener:
-  address: 0.0.0.0:19132
+  address: 0.0.0.0:19133
   auth: true
   motd: <bold><dark-purple>Open</dark-purple><purple>Proxy</purple></bold>
 logging:
