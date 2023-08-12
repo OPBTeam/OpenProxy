@@ -2,7 +2,6 @@ package proxy
 
 import (
 	"errors"
-	"github.com/opbteam/proxyeye/proxy/util"
 	"io/ioutil"
 	"log"
 	"sync"
@@ -70,15 +69,10 @@ func (r *remoteserver) Connect(player session.Player) error {
 	}
 	client := player.Raknet().ClientData()
 	client.PlatformOnlineID = player.Raknet().IdentityData().XUID
-
-	if err := util.InitializeToken(); err != nil {
-		return err
-	}
 	conn, err := minecraft.Dialer{
 		ErrorLog:     discardLogger,
 		ClientData:   client,
 		IdentityData: player.Raknet().IdentityData(),
-		TokenSource:  util.TokenSrc,
 	}.Dial("raknet", r.address)
 	if err != nil {
 		r.count.Dec()
